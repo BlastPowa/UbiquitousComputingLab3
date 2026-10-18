@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Don’t Touch My Phone</string>
+    <string name="start_monitoring">Start monitoring</string>
+    <string name="monitoring">Service started</string>
+</resources>
