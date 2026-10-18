@@ -12,7 +12,8 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
-import android.util.Log;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class MotionService extends Service implements SensorEventListener {
     SensorManager sensorManager;
@@ -61,7 +62,15 @@ public class MotionService extends Service implements SensorEventListener {
             float z = event.values[2] - lastZ;
             double movement = Math.sqrt(x * x + y * y + z * z);
             if (movement > 5) {
-                Log.d("MotionService", "Motion detected");
+                String time = DateFormat.getDateTimeInstance().format(new Date());
+
+                Notification notification = new Notification.Builder(this, "motion")
+                        .setSmallIcon(R.drawable.ic_notification)
+                        .setContentTitle(getString(R.string.motion_detected))
+                        .setContentText(time)
+                        .setAutoCancel(true)
+                        .build();
+                notificationManager.notify(2, notification);
             }
         }
         lastX = event.values[0];
