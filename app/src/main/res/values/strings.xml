@@ -3,4 +3,5 @@
     <string name="start_monitoring">Start monitoring</string>
     <string name="monitoring">Monitoring the accelerometer</string>
     <string name="motion_detected">Motion detected</string>
+    <string name="motion_details">Motion detected at %1$s</string>
 </resources>

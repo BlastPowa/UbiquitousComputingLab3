@@ -3,6 +3,7 @@ package com.example.uclab3;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -63,11 +64,16 @@ public class MotionService extends Service implements SensorEventListener {
             double movement = Math.sqrt(x * x + y * y + z * z);
             if (movement > 5) {
                 String time = DateFormat.getDateTimeInstance().format(new Date());
+                Intent intent = new Intent(this, MotionActivity.class);
+                intent.putExtra("time", time);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 Notification notification = new Notification.Builder(this, "motion")
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle(getString(R.string.motion_detected))
                         .setContentText(time)
+                        .setContentIntent(pendingIntent)
                         .setAutoCancel(true)
                         .build();
                 notificationManager.notify(2, notification);
