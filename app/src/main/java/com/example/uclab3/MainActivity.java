@@ -30,8 +30,7 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults.length > 0 &&
                 grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Intent intent = new Intent(this, MotionService.class);
-            startForegroundService(intent);
+            startMonitoring(findViewById(R.id.startButton));
         }
     }
 }
