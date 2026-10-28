@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 public class MotionService extends Service implements SensorEventListener {
+    public static final String NOTIFICATION_CHANNEL_ID = "motion";
     SensorManager sensorManager;
     NotificationManager notificationManager;
     HandlerThread sensorThread;
@@ -30,11 +31,11 @@ public class MotionService extends Service implements SensorEventListener {
         super.onCreate();
 
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        NotificationChannel channel = new NotificationChannel("motion", getString(R.string.app_name),
+        NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT);
         notificationManager.createNotificationChannel(channel);
 
-        Notification notification = new Notification.Builder(this, "motion")
+        Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.monitoring))
@@ -69,7 +70,7 @@ public class MotionService extends Service implements SensorEventListener {
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-                Notification notification = new Notification.Builder(this, "motion")
+                Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle(getString(R.string.motion_detected))
                         .setContentText(time)
